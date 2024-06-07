@@ -49,12 +49,13 @@ export function formatDisplayDate(date: Date) {
   return `${year}-${month}-${day}`;
 }
 
+// TODO idea: Enable sorting for all columns!
+//            Start here: https://nextui.org/docs/components/table#sorting-rows
 export default function TxnHistoryTable({
   transactions,
 }: {
   transactions: Transaction[];
 }) {
-  console.log(`transactions: ${JSON.stringify(transactions)}`);
   return (
     <Table
       isStriped
