@@ -7,7 +7,7 @@ import clsx from "clsx";
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
-const mockAccountIds = [111111, 222222, 333333, 444444, 555555, 666666];
+const mockAccountIds = [716662, 443178, 557378, 674364, 316726, 775690];
 
 const links = mockAccountIds.map((id) => {
   return { name: id, href: `/dashboard/${id}`, icon: CubeIcon };

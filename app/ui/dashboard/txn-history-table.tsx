@@ -10,74 +10,29 @@ import {
   TableCell,
   getKeyValue,
 } from "@nextui-org/table";
-
-const rows = [
-  {
-    date: "2022-01-01",
-    symbol: "ABC",
-    action: "Buy",
-    shares: 100,
-    pps: 10.0,
-    total: 1000.0,
-  },
-  {
-    date: "2022-01-02",
-    symbol: "ABC",
-    action: "Sell",
-    shares: 50,
-    pps: 11.0,
-    total: 550.0,
-  },
-  {
-    date: "2022-01-03",
-    symbol: "XYZ",
-    action: "Buy",
-    shares: 200,
-    pps: 5.0,
-    total: 1000.0,
-  },
-  {
-    date: "2022-01-04",
-    symbol: "XYZ",
-    action: "Sell",
-    shares: 100,
-    pps: 6.0,
-    total: 600.0,
-  },
-  {
-    date: "2022-01-05",
-    symbol: "XYZ",
-    action: "Buy",
-    shares: 300,
-    pps: 7.0,
-    total: 2100.0,
-  },
-  {
-    date: "2022-01-06",
-    symbol: "XYZ",
-    action: "Sell",
-    shares: 200,
-    pps: 8.0,
-    total: 1600.0,
-  },
-];
+import { Transaction } from "@/app/types/Transaction";
 
 const columns = [
   { key: "date", label: "DATE" },
   { key: "symbol", label: "SYMBOL" },
-  { key: "action", label: "ACTION" },
-  { key: "shares", label: "SHARES" },
-  { key: "pps", label: "PRICE/SHARE" },
+  { key: "transaction_code", label: "ACTION" },
+  { key: "amount", label: "SHARES" },
+  { key: "price", label: "PRICE/SHARE" },
   { key: "total", label: "TOTAL" },
 ];
 
-export default function TxnHistoryTable() {
+export default function TxnHistoryTable({
+  transactions,
+}: {
+  transactions: Transaction[];
+}) {
+  console.log(`transactions: ${JSON.stringify(transactions)}`);
   return (
     <Table aria-label="Table of the transaction history for the selected account">
       <TableHeader columns={columns}>
         {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
       </TableHeader>
-      <TableBody items={rows}>
+      <TableBody items={transactions}>
         {(item) => (
           <TableRow key={item.date}>
             {(columnKey) => (
