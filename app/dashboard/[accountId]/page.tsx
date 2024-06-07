@@ -5,8 +5,10 @@ export default function AccountHistoryPage({
 }) {
   return (
     <>
-      <h1>This page will display the transaction history for</h1>
-      <h1>Account: {params.accountId}</h1>
+      <p className="text-3xl">
+        This page will display the transaction history for Account:{" "}
+        {params.accountId}
+      </p>
     </>
   );
 }
