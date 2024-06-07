@@ -26,6 +26,12 @@ export default function NavLinks() {
   const pathname = usePathname();
   return (
     <>
+      {/* TODO idea: Currently, in a narrow window (mobile), the nav buttons (each representing an account)
+                       crowd into the same row. This may be fine for now, since the max number of accounts
+                       that a customer holds happens to be 6. However, there is no guarantee that the customer
+                       cannot have more accounts. It may be better to display a dropdown menu, then showing
+                       the navs for all accounts all the time.
+        */}
       {links.map((link) => {
         const LinkIcon = link.icon;
         return (
