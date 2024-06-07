@@ -1,14 +1,28 @@
+import { getClient } from "@/app/lib/data-service/client";
 import TxnHistoryTable from "@/app/ui/dashboard/txn-history-table";
-export default function AccountHistoryPage({
+import { TxnBatchQueryResponse } from "@/app/types/Transaction";
+import { transactionBatchQuery } from "@/app/lib/data-service/queries";
+
+export default async function AccountHistoryPage({
   params,
 }: {
   params: { accountId: string };
 }) {
+  const { data } = await getClient().query({
+    query: transactionBatchQuery,
+    variables: {
+      accountId: parseInt(params.accountId),
+    },
+  });
+
+  const transactions =
+    (data as TxnBatchQueryResponse)?.transactionBatch?.transactions ?? [];
+
   return (
     <>
       <div className="text-2xl mb-8">{`Transaction History`}</div>
       <div className="text-lg">
-        <TxnHistoryTable />
+        <TxnHistoryTable transactions={transactions} />
       </div>
     </>
   );
