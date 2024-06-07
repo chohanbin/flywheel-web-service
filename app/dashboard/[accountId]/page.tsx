@@ -1,3 +1,4 @@
+import TxnHistoryTable from "@/app/ui/dashboard/txn-history-table";
 export default function AccountHistoryPage({
   params,
 }: {
@@ -5,10 +6,10 @@ export default function AccountHistoryPage({
 }) {
   return (
     <>
-      <p className="text-3xl">
-        This page will display the transaction history for Account:{" "}
-        {params.accountId}
-      </p>
+      <div className="text-2xl mb-8">{`Transaction History`}</div>
+      <div className="text-lg">
+        <TxnHistoryTable />
+      </div>
     </>
   );
 }
