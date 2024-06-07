@@ -1,3 +1,8 @@
 export default function DashboardPage() {
-  return <p className="text-3xl">This is the dashboard page</p>;
+  return (
+    <div className="text-2xl mb-8">
+      Welcome NAME OF CUSTOMER! Select an account to view its transaction
+      history.
+    </div>
+  );
 }
