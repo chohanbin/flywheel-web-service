@@ -8,3 +8,11 @@ export type Customer = {
   email: string;
   accounts: AccountId[];
 };
+
+export type CustomerForLogin = {
+  username: string;
+};
+
+export type CustomerQueryResponse = {
+  customer: Customer;
+};

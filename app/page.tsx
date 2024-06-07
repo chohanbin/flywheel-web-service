@@ -1,12 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import { lusitana } from "@/app/ui/fonts";
-import FlywheelTitle from "@/app/ui/flywheel-title";
 import FlywheelLogo from "./ui/flywheel-logo";
 import LoginButton from "./ui/login-button";
 import FlywheelWelcomeMsg from "./ui/flywheel-welcome-msg";
-import UsernameInput from "./ui/username-input";
 
 export default function Home() {
   return (
@@ -18,7 +13,6 @@ export default function Home() {
         <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10 md:w-2/5 md:px-20">
           <FlywheelWelcomeMsg />
           <form action="/login" method="POST">
-            <UsernameInput />
             <LoginButton />
           </form>
         </div>
