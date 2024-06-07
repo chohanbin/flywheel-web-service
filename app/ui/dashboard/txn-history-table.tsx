@@ -17,9 +17,37 @@ const columns = [
   { key: "symbol", label: "SYMBOL" },
   { key: "transaction_code", label: "ACTION" },
   { key: "amount", label: "SHARES" },
-  { key: "price", label: "PRICE/SHARE" },
-  { key: "total", label: "TOTAL" },
+  { key: "price", label: "$ / SHARE" },
+  { key: "total", label: "TOTAL ($)" },
 ];
+
+// TODO maybe: Instead of shortening decimal places in the frontend,
+//             it may be better to shorten in the backend,
+//             to reduce the total size of response.
+//             If however, summation of "total" needs to be done in the frontend,
+//             then it may be better to keep the full precision in the frontend.
+export function formatDisplayValue(key: string, value: string | number) {
+  switch (key) {
+    case "date":
+      const date = new Date(parseInt(value as string));
+      return formatDisplayDate(date);
+    case "symbol":
+      return (value as string).toUpperCase();
+    case "price":
+      return parseFloat(value as string).toFixed(2);
+    case "total":
+      return parseFloat(value as string).toFixed(2);
+    default:
+      return value;
+  }
+}
+
+export function formatDisplayDate(date: Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
 
 export default function TxnHistoryTable({
   transactions,
@@ -28,7 +56,10 @@ export default function TxnHistoryTable({
 }) {
   console.log(`transactions: ${JSON.stringify(transactions)}`);
   return (
-    <Table aria-label="Table of the transaction history for the selected account">
+    <Table
+      isStriped
+      aria-label="Table of the transaction history for the selected account"
+    >
       <TableHeader columns={columns}>
         {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
       </TableHeader>
@@ -36,7 +67,12 @@ export default function TxnHistoryTable({
         {(item) => (
           <TableRow key={item.date}>
             {(columnKey) => (
-              <TableCell>{getKeyValue(item, columnKey)}</TableCell>
+              <TableCell>
+                {formatDisplayValue(
+                  columnKey as string,
+                  getKeyValue(item, columnKey),
+                )}
+              </TableCell>
             )}
           </TableRow>
         )}
