@@ -12,15 +12,6 @@ const mockAccountIds = [111111, 222222, 333333, 444444, 555555, 666666];
 const links = mockAccountIds.map((id) => {
   return { name: id, href: `/dashboard/${id}`, icon: CubeIcon };
 });
-//   const links = [
-//     { name: 'Home', href: '/dashboard', icon: HomeIcon },
-//     {
-//       name: 'Invoices',
-//       href: '/dashboard/invoices',
-//       icon: CubeIcon,
-//     },
-//     { name: 'Customers', href: '/dashboard/customers', icon: CubeIcon },
-//   ];
 
 export default function NavLinks() {
   const pathname = usePathname();
