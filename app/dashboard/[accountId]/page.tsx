@@ -1,6 +1,6 @@
 import { getClient } from "@/app/lib/client";
 import TxnHistoryTable from "@/app/ui/dashboard/txn-history-table";
-import { TxnBatchQueryResponse } from "@/app/types/Transaction";
+import { TxnBatchQueryResponse } from "@/app/lib/definitions";
 import { transactionBatchQuery } from "@/app/lib/queries";
 
 export default async function AccountHistoryPage({
