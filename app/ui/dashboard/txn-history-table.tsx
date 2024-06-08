@@ -10,7 +10,8 @@ import {
   TableCell,
   getKeyValue,
 } from "@nextui-org/table";
-import { Transaction } from "@/app/types/Transaction";
+import { Transaction, TransactionBatch } from "@/app/lib/definitions";
+import { fetchTransactionBatch } from "@/app/lib/data";
 
 const columns = [
   { key: "date", label: "DATE" },
@@ -26,13 +27,23 @@ const columns = [
 //             to reduce the total size of response.
 //             If however, summation of "total" needs to be done in the frontend,
 //             then it may be better to keep the full precision in the frontend.
+export function stockSummaryLink(stockSymbol: string) {}
+
+export const nasdaqStockSummaryBasepath =
+  "https://www.nasdaq.com/market-activity/stocks/";
+export function StockSymbol({ symbol }: { symbol: string }) {
+  const link = `${nasdaqStockSummaryBasepath}${symbol}`;
+  return <a href={`${link}`}>{symbol}</a>;
+}
+
 export function formatDisplayValue(key: string, value: string | number) {
   switch (key) {
     case "date":
       const date = new Date(parseInt(value as string));
       return formatDisplayDate(date);
     case "symbol":
-      return (value as string).toUpperCase();
+      const symbol = (value as string).toUpperCase();
+      return <StockSymbol symbol={symbol} />;
     case "price":
       return parseFloat(value as string).toFixed(2);
     case "total":
@@ -51,7 +62,7 @@ export function formatDisplayDate(date: Date) {
 
 // TODO idea: Enable sorting for all columns!
 //            Start here: https://nextui.org/docs/components/table#sorting-rows
-export default function TxnHistoryTable({
+export default async function TxnHistoryTable({
   transactions,
 }: {
   transactions: Transaction[];
@@ -59,6 +70,7 @@ export default function TxnHistoryTable({
   return (
     <Table
       isStriped
+      className="text-lg"
       aria-label="Table of the transaction history for the selected account"
     >
       <TableHeader columns={columns}>
@@ -69,6 +81,7 @@ export default function TxnHistoryTable({
           <TableRow key={item.date}>
             {(columnKey) => (
               <TableCell>
+                {/* TODO: Prefix total with '-' if buy. Maybe even color code as red */}
                 {formatDisplayValue(
                   columnKey as string,
                   getKeyValue(item, columnKey),
