@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Flywheel Web Service
 
-## Getting Started
+The mighty Flywheel Trading app's frontend service. Its primary purpose is to let the user view and interact with their data through the browser.
 
-First, run the development server:
+# How to launch this service
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+You can run this service using npm or docker.
+
+### Using npm
+
+First, launch flywheel-data-service first. Follow the instruction at https://github.com/chohanbin/flywheel-data-service/blob/main/README.md
+
+Create `.env` file to:
+
+- Store a secret that the user authentication service should use. Generate the secrete with `openssl rand -base64 32` then set it as the value for `AUTH_SECRET`
+- Specify the address of the data service (`http://localhost:4000/graphql` by default).
+
+```shell
+# .env
+AUTH_SECRET=your-secret-key
+DATA_SERVICE_ADDRESS="http://localhost:4000/graphql"
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+From the repo root directory, invoke:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```shell
+npm install   # Only needs to be run once.
+npm run dev     # Run every time the service needs to start.
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Shut down the service with `Ctrl + D`.
 
-## Learn More
+### Using docker
 
-To learn more about Next.js, take a look at the following resources:
+First, run flywheel-data-service as a docker container, with alias `--name data-service`.
+Follow [this instruction](https://github.com/chohanbin/flywheel-data-service/blob/main/README.md#using-docker).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Then, build the image for this service with:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```shell
+docker build -t flywheel-web-service .
+```
 
-## Deploy on Vercel
+Then run the container from that image:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```shell
+docker run --name web-service \   # the name that this service will be known to other services on 'flywheel' network
+  --network flywheel \
+  -dp 127.0.0.1:3000:3000 \
+  -e DATA_SERVICE_ADDRESS='http://data-service:4000/graphql' \    # targeting the data-service container
+  flywheel-web-service
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Shut down the service, by first identifying the container ID:
+
+```shell
+docker ps | grep flywheel-web-service
+```
+
+Then run ([Explanation](https://docs.docker.com/get-started/03_updating_app/#remove-a-container-using-the-cli) of `docker rm -f`):
+
+```shell
+docker rm -f <target docker container ID>
+```
+
+# How to run automated test
+
+From the repo root directory, invoke:
+
+TODO: TBD
+
+# Author
+
+Hanbin Cho
