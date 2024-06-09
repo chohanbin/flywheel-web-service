@@ -4,10 +4,6 @@ import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import { getCustomer, makeMutableCopy } from '@/app/lib/data';
 
-// The shortest username in 'customers' collection is 4 characters long.
-// Assume that the username must be at least 4.
-const MIN_USERNAME_LENGTH = 4;
-
 export const {
     handlers: { GET, POST },
     auth,
@@ -19,15 +15,15 @@ export const {
     Credentials({
         async authorize(credentials) {
             const parsedCredentials = z
-                .object({ username: z.string().min(MIN_USERNAME_LENGTH) })
+                .object({ email: z.string().email() })
                 .safeParse(credentials);
 
             if (parsedCredentials.success) {
-                const { username } = parsedCredentials.data;
-                const customer = await getCustomer(username);
+                const { email } = parsedCredentials.data;
+                const customer = await getCustomer(email);
                 // TODO idea: Once the app starts supporting password,
                 //   Then validate that here.
-                //   For now, validating that username exists is enough.
+                //   For now, validating that email exists is enough.
                 //   Better yet, consider using more robust auth providers.
                 //   See comments at /auth.config.ts -> 'providers' for suggestions.
 

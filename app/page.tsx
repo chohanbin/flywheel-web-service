@@ -1,12 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import { lusitana } from "@/app/ui/fonts";
-import FlywheelTitle from "@/app/ui/flywheel-title";
 import FlywheelLogo from "./ui/flywheel-logo";
-import LoginButton from "./ui/login-button";
 import FlywheelWelcomeMsg from "./ui/flywheel-welcome-msg";
-import UsernameInput from "./ui/username-input";
 import LoginForm from "@/app/ui/login-form";
 
 export default function Home() {

@@ -7,7 +7,7 @@ export async function authenticate(
   prevState: string | undefined,
   formData: FormData,
 ) {
-  const username = formData.get("username");
+  const email = formData.get("email");
 
   try {
     //
@@ -18,7 +18,7 @@ export async function authenticate(
     //
     // await signIn('credentials', formData);
     await signIn("credentials", {
-      username: username,
+      email: email,
       redirectTo: "/dashboard",
     });
   } catch (error) {
