@@ -4,17 +4,15 @@ import { HomeIcon, CubeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { auth } from "@/auth";
+import { AccountId } from "@/app/lib/definitions";
 
-// Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
-const mockAccountIds = [716662, 443178, 557378, 674364, 316726, 775690];
-
-const links = mockAccountIds.map((id) => {
-  return { name: id, href: `/dashboard/${id}`, icon: CubeIcon };
-});
-
-export default function NavLinks() {
+export default function NavLinks({ accountIds }: { accountIds: AccountId[] }) {
   const pathname = usePathname();
+  const links = accountIds.map((id) => {
+    return { name: id, href: `/dashboard/${id}`, icon: CubeIcon };
+  });
+
   return (
     <>
       {/* TODO idea: Currently, in a narrow window (mobile), the nav buttons (each representing an account)

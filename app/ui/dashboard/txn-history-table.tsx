@@ -10,8 +10,7 @@ import {
   TableCell,
   getKeyValue,
 } from "@nextui-org/table";
-import { Transaction, TransactionBatch } from "@/app/lib/definitions";
-import { fetchTransactionBatch } from "@/app/lib/data";
+import { Transaction } from "@/app/lib/definitions";
 
 const columns = [
   { key: "date", label: "DATE" },
@@ -33,7 +32,13 @@ export const nasdaqStockSummaryBasepath =
   "https://www.nasdaq.com/market-activity/stocks/";
 export function StockSymbol({ symbol }: { symbol: string }) {
   const link = `${nasdaqStockSummaryBasepath}${symbol}`;
-  return <a href={`${link}`}>{symbol}</a>;
+  return (
+    <div className="underline text-blue-600 hover:text-blue-800">
+      <a target="_blank" rel="noreferrer noopener" href={`${link}`}>
+        {symbol}
+      </a>
+    </div>
+  );
 }
 
 export function formatDisplayValue(key: string, value: string | number) {

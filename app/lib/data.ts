@@ -4,8 +4,8 @@ import { Customer, TransactionBatch } from "@/app/lib/definitions";
 import { unstable_noStore as noStore } from "next/cache";
 
 export const customerQuery = gql`
-  query GetCustomer($username: String!) {
-    customer(username: $username) {
+  query GetCustomer($email: String!) {
+    customer(email: $email) {
       id
       username
       email
@@ -38,28 +38,38 @@ export function makeMutableCopy(immutableObj: Object) {
   return JSON.parse(JSON.stringify(immutableObj));
 }
 
-export async function getCustomer(
-  username: string,
+export async function fetchCustomer(
+  email: string,
 ): Promise<Customer | undefined> {
   // Prevent the browser-side caching, in case the failure was due to temporary backend failure.
   noStore();
 
   try {
     // Known issue: As of 2024-06-08, the backend DB currently stores more than one
-    //   customer with the same username. The data-service handles returning one of them,
-    //   so that for the frontend, it will appear as if there is only one customer for a given username.
+    //   customer with the same email. The data-service handles returning one of them,
+    //   so that for the frontend, it will appear as if there is only one customer for a given email.
     //   For more info on this issue, see the comments in:
     //   https://github.com/chohanbin/flywheel-data-service/blob/main/src/datasources/analytics.ts
     // Caveat: query result is immutable. See comments at: @/app/lib/client.ts
     const { data } = await getClient().query({
       query: customerQuery,
-      variables: { username },
+      variables: { email },
     });
 
     return data.customer;
   } catch (error) {
     console.error("Failed to fetch customer:", error);
-    throw new Error(`Failed to fetch customer ${username}`);
+    throw new Error(`Failed to fetch customer ${email}`);
+  }
+}
+
+export async function fetchAccountIds(email: string) {
+  try {
+    const customer = await fetchCustomer(email);
+    return customer?.accounts;
+  } catch (error) {
+    console.error("Failed to fetch accountIds", error);
+    throw new Error(`Failed to fetch accountIds for ${email}`);
   }
 }
 

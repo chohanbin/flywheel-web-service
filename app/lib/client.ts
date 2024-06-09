@@ -1,10 +1,5 @@
 import { HttpLink, InMemoryCache, ApolloClient } from "@apollo/client";
 import { registerApolloClient } from "@apollo/experimental-nextjs-app-support";
-import { config } from "dotenv";
-
-// DATA_SERVICE_ADDRESS may be passed in as an in-line env variable with `docker run`.
-// Default to reading from .env.local if not provided (.env.local is not part of the git repo)
-if (process.env.DATA_SERVICE_ADDRESS == null) config({ path: ".env.local" });
 
 // CAVEAT: Data returned by getClient().query(...) is immutable.
 //   Learn more at (Even though the doc is for Kotlin client, what is described is relevant here too):
