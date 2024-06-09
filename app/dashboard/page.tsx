@@ -9,8 +9,10 @@ export default async function DashboardPage() {
     redirect("/");
   }
   return (
-    <div className={`${lusitana.className} text-2xl mb-8`}>
-      Welcome {custName}! Select an account to view transations.
+    <div className="flex items-center justify-center md:h-screen">
+      <div className={`${lusitana.className} text-2xl mb-8`}>
+        Welcome {custName}! Select an account to view transations.
+      </div>
     </div>
   );
 }
