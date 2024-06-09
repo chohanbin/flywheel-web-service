@@ -6,6 +6,8 @@ export default function SignOutButton() {
     <form
       action={async () => {
         "use server";
+        // Including 'redirectTo: "/" is necessary. Otherwise, even after the app
+        // redirects the user to the landing page, the pathname will remain as '/dashboard'.
         await signOut({ redirectTo: "/" });
       }}
     >

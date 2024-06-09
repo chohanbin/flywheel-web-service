@@ -24,6 +24,9 @@ export const { auth, signIn, signOut } = NextAuth({
                 // TODO idea: Once the app starts supporting password,
                 //   Then validate that here.
                 //   For now, validating that username exists is enough.
+                //   Better yet, consider using more robust auth providers.
+                //   See comments at /auth.config.ts -> 'providers' for suggestions.
+
                 if (customer) {
                     //
                     // Why bother making a mutable copy?
