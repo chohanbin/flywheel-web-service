@@ -1,5 +1,4 @@
 import { lusitana } from "../fonts";
-import { formatDisplayDate } from "./txn-history-table";
 
 export default async function TxhHistorySummary({
   tranctionCount,

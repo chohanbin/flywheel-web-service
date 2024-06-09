@@ -13,8 +13,6 @@ export default async function AccountHistoryPage({
   console.log(`Received accountId = ${params.accountId}`);
   const accountId = parseInt(params.accountId);
   const txnBatch = await fetchTransactionBatch(accountId); // Must be invoked from a server component.
-  const batchStartDate = new Date(parseInt(txnBatch.bucket_start_date));
-  const batchEndDate = new Date(parseInt(txnBatch.bucket_end_date));
 
   return (
     <>
@@ -28,11 +26,7 @@ export default async function AccountHistoryPage({
           },
         ]}
       />
-      <TxhHistorySummary
-        tranctionCount={txnBatch.transaction_count}
-        batchStartDate={batchStartDate}
-        batchEndDate={batchEndDate}
-      />
+      <TxhHistorySummary tranctionCount={txnBatch.transaction_count} />
       <TxnHistoryTable transactions={txnBatch.transactions} />
     </>
   );

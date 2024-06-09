@@ -7,10 +7,6 @@ import clsx from "clsx";
 import { auth } from "@/auth";
 import { AccountId } from "@/app/lib/definitions";
 
-// Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
-// const mockAccountIds = [716662, 443178, 557378, 674364, 316726, 775690];
-
 export default function NavLinks({ accountIds }: { accountIds: AccountId[] }) {
   const pathname = usePathname();
   const links = accountIds.map((id) => {

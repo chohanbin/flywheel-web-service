@@ -1,23 +1,19 @@
 import NavLinks from "@/app/ui/dashboard/nav-links";
-import { PowerIcon } from "@heroicons/react/24/outline";
 import FlywheelLogo from "@/app/ui/flywheel-logo";
 import SignOutButton from "./signout-button";
 import { auth } from "@/auth";
 import { fetchAccountIds } from "@/app/lib/data";
 import { AccountId } from "@/app/lib/definitions";
-import { lusitana } from "../fonts";
 
 export default async function SideNav() {
   let session = await auth();
   const custEmail = session?.user?.email;
   if (!custEmail) {
-    // TODO: Handle if session, user is undefined;
     return <></>;
   }
   const accountIds: AccountId[] | undefined = await fetchAccountIds(custEmail);
 
   if (!accountIds) {
-    // TODO: Handle if session, accountIds is undefined.
     return <></>;
   }
 

@@ -5,7 +5,7 @@ export default async function DashboardPage() {
   let session = await auth();
   const custName = session?.user?.name;
   if (!custName) {
-    // TODO: Handle if session, user is undefined;
+    return <></>;
   }
   return (
     <div className={`${lusitana.className} text-2xl mb-8`}>

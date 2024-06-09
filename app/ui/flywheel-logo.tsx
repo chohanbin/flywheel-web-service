@@ -1,7 +1,5 @@
 import { lusitana } from "@/app/ui/fonts";
 import Image from "next/image";
-import FlywheelSymbol from "@/app/ui/flywheel-symbol";
-import FlywheelTitle from "@/app/ui/flywheel-title";
 
 export default function FlywheelLogo() {
   return (
