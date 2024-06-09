@@ -3,13 +3,17 @@ import { authConfig } from '@/auth.config';
 import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import { getCustomer, makeMutableCopy } from '@/app/lib/data';
-import { Customer } from '@/app/lib/definitions';
 
 // The shortest username in 'customers' collection is 4 characters long.
 // Assume that the username must be at least 4.
-
 const MIN_USERNAME_LENGTH = 4;
-export const { auth, signIn, signOut } = NextAuth({
+
+export const {
+    handlers: { GET, POST },
+    auth,
+    signIn,
+    signOut
+} = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
@@ -39,7 +43,7 @@ export const { auth, signIn, signOut } = NextAuth({
                     //   Even if the customer object lacks 'id' field,
                     //     another error will be thrown: "TypeError: Cannot add property id, object is not extensible"
                     // Hence, decided to return a mutable copy of the customer data.
-                       
+
                     return makeMutableCopy(customer);
                 }
             }
