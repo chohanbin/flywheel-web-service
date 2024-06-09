@@ -10,8 +10,7 @@ import {
   TableCell,
   getKeyValue,
 } from "@nextui-org/table";
-import { Transaction, TransactionBatch } from "@/app/lib/definitions";
-import { fetchTransactionBatch } from "@/app/lib/data";
+import { Transaction } from "@/app/lib/definitions";
 
 const columns = [
   { key: "date", label: "DATE" },

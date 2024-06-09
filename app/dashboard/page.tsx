@@ -1,14 +1,15 @@
 import { auth } from "@/auth";
+import { lusitana } from "../ui/fonts";
 
 export default async function DashboardPage() {
   let session = await auth();
-  // TODO: Handle if session, user is undefined;
-  const customer = session?.user;
-
+  const custName = session?.user?.name;
+  if (!custName) {
+    // TODO: Handle if session, user is undefined;
+  }
   return (
-    <div className="text-2xl mb-8">
-      Welcome {customer?.name}! Select an account to view its transaction
-      history.
+    <div className={`${lusitana.className} text-2xl mb-8`}>
+      Welcome {custName}! Select an account to view transations.
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import TxnHistoryTable from "@/app/ui/dashboard/txn-history-table";
 import { fetchTransactionBatch } from "@/app/lib/data";
 import TxhHistorySummary from "@/app/ui/dashboard/txn-history-summary";
+import Breadcrumbs from "@/app/ui/dashboard/breadcrumbs";
 
 export default async function AccountHistoryPage({
   params,
@@ -17,10 +18,17 @@ export default async function AccountHistoryPage({
 
   return (
     <>
-      {/* TODO: Replace with Breadcrumbs showing accountId? */}
-      <div className="text-2xl mb-8">{`Transaction History`}</div>
+      <Breadcrumbs
+        breadcrumbs={[
+          { label: "Dashboard", href: "/dashboard" },
+          {
+            label: `Account ${accountId} Transactions`,
+            href: `/dashboard/${accountId}`,
+            active: true,
+          },
+        ]}
+      />
       <TxhHistorySummary
-        accountId={txnBatch.account_id}
         tranctionCount={txnBatch.transaction_count}
         batchStartDate={batchStartDate}
         batchEndDate={batchEndDate}

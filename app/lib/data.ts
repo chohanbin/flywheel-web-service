@@ -38,7 +38,7 @@ export function makeMutableCopy(immutableObj: Object) {
   return JSON.parse(JSON.stringify(immutableObj));
 }
 
-export async function getCustomer(
+export async function fetchCustomer(
   email: string,
 ): Promise<Customer | undefined> {
   // Prevent the browser-side caching, in case the failure was due to temporary backend failure.
@@ -60,6 +60,16 @@ export async function getCustomer(
   } catch (error) {
     console.error("Failed to fetch customer:", error);
     throw new Error(`Failed to fetch customer ${email}`);
+  }
+}
+
+export async function fetchAccountIds(email: string) {
+  try {
+    const customer = await fetchCustomer(email);
+    return customer?.accounts;
+  } catch (error) {
+    console.error("Failed to fetch accountIds", error);
+    throw new Error(`Failed to fetch accountIds for ${email}`);
   }
 }
 

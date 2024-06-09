@@ -2,8 +2,25 @@ import NavLinks from "@/app/ui/dashboard/nav-links";
 import { PowerIcon } from "@heroicons/react/24/outline";
 import FlywheelLogo from "@/app/ui/flywheel-logo";
 import SignOutButton from "./signout-button";
+import { auth } from "@/auth";
+import { fetchAccountIds } from "@/app/lib/data";
+import { AccountId } from "@/app/lib/definitions";
+import { lusitana } from "../fonts";
 
-export default function SideNav() {
+export default async function SideNav() {
+  let session = await auth();
+  const custEmail = session?.user?.email;
+  if (!custEmail) {
+    // TODO: Handle if session, user is undefined;
+    return <></>;
+  }
+  const accountIds: AccountId[] | undefined = await fetchAccountIds(custEmail);
+
+  if (!accountIds) {
+    // TODO: Handle if session, accountIds is undefined.
+    return <></>;
+  }
+
   return (
     <div className="flex h-full flex-col px-3 py-4 md:px-2">
       <div className="mb-2 flex h-30 items-end justify-start rounded-md bg-blue-600 p-4 md:h-40">
@@ -12,10 +29,7 @@ export default function SideNav() {
         </div>
       </div>
       <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
-        <div className="hidden h-[70px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-lg font-medium md:flex md:flex-none md:justify-start md:p-2 md:px-3">
-          Account
-        </div>
-        <NavLinks />
+        <NavLinks accountIds={accountIds} />
         <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
         <SignOutButton />
       </div>

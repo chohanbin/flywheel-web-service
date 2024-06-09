@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 import { authConfig } from '@/auth.config';
 import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
-import { getCustomer, makeMutableCopy } from '@/app/lib/data';
+import { fetchCustomer, makeMutableCopy } from '@/app/lib/data';
 
 export const {
     handlers: { GET, POST },
@@ -20,7 +20,7 @@ export const {
 
             if (parsedCredentials.success) {
                 const { email } = parsedCredentials.data;
-                const customer = await getCustomer(email);
+                const customer = await fetchCustomer(email);
                 // TODO idea: Once the app starts supporting password,
                 //   Then validate that here.
                 //   For now, validating that email exists is enough.
