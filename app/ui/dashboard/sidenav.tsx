@@ -4,17 +4,18 @@ import SignOutButton from "./signout-button";
 import { auth } from "@/auth";
 import { fetchAccountIds } from "@/app/lib/data";
 import { AccountId } from "@/app/lib/definitions";
+import { redirect } from "next/navigation";
 
 export default async function SideNav() {
   let session = await auth();
   const custEmail = session?.user?.email;
   if (!custEmail) {
-    return <></>;
+    redirect("/");
   }
   const accountIds: AccountId[] | undefined = await fetchAccountIds(custEmail);
 
   if (!accountIds) {
-    return <></>;
+    redirect("/");
   }
 
   return (
