@@ -7,6 +7,7 @@ import FlywheelLogo from "./ui/flywheel-logo";
 import LoginButton from "./ui/login-button";
 import FlywheelWelcomeMsg from "./ui/flywheel-welcome-msg";
 import UsernameInput from "./ui/username-input";
+import LoginForm from "@/app/ui/login-form";
 
 export default function Home() {
   return (
@@ -17,10 +18,7 @@ export default function Home() {
       <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
         <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10 md:w-2/5 md:px-20">
           <FlywheelWelcomeMsg />
-          <form action="/login" method="POST">
-            <UsernameInput />
-            <LoginButton />
-          </form>
+          <LoginForm />
         </div>
         <div className="flex items-center justify-center p-6 md:w-3/5 md:px-28 md:py-12">
           <Image

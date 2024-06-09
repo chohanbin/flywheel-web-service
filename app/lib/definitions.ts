@@ -9,6 +9,7 @@
 //         (See https://graphql.org/learn/schema/#scalar-types)
 
 export type Customer = {
+  id: string;
   username: string;
   name: string;
   address: string;
