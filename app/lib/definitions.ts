@@ -8,6 +8,12 @@
 //       But GraphQL 'Int' type is a signed 32-bit integer, so it can't represent the timestamp from MongoDB accurately.
 //         (See https://graphql.org/learn/schema/#scalar-types)
 
+import { z } from "zod";
+
+export const credentialSchema = z.object({
+  email: z.string().email(),
+});
+
 export type Customer = {
   id: string;
   username: string;

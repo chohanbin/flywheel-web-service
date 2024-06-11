@@ -3,6 +3,7 @@ import { authConfig } from '@/auth.config';
 import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import { fetchCustomer, makeMutableCopy } from '@/app/lib/data';
+import { credentialSchema } from './app/lib/definitions';
 
 export const {
     handlers: { GET, POST },
@@ -14,9 +15,7 @@ export const {
   providers: [
     Credentials({
         async authorize(credentials) {
-            const parsedCredentials = z
-                .object({ email: z.string().email() })
-                .safeParse(credentials);
+            const parsedCredentials = credentialSchema.safeParse(credentials);
 
             if (parsedCredentials.success) {
                 const { email } = parsedCredentials.data;
