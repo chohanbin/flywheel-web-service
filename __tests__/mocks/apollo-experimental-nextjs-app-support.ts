@@ -1,3 +1,4 @@
+// Mocking GraphQL client
 export const registerApolloClient = jest.fn(() => {
     return {
       getClient: () => ({
